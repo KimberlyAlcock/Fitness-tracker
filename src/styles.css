@@ -79,6 +79,16 @@ main {
     flex-direction: column;
   }
 
+  .tracker-button {
+    color: #d66853;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid #212D40;
+    margin: 0 5px;
+    border-radius: 5px;
+    text-align: right;
+  }
+
   @media screen and (min-width: 600px) {
     main {
       grid-template-columns: repeat(2, 1fr);

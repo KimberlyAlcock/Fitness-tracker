@@ -19,27 +19,40 @@
   <div id="planks">
       <h2>Practice Tracker</h2>
       <p>Did you plank today? Well did ya? </p>
+      <p>TODO: add in display of access db</p>
+      <p>TODO: change submit button to send data to access db</p>
   </div>
 
   <h3>Track Planks, Pullups, and Double-Unders Practice</h3>
+  <form id="practiceTrackerForm">
   <table>
       <tr>
-          <th>Day</th>
           <th>Date</th>
           <th>Planks</th>
           <th>Pullups</th>
           <th>Double-Unders</th>
       </tr>
-      <!-- Example row with input fields -->
+      <!-- input fields -->
       <tr>
-          <td><input type="day" placeholder="Day"></td>
           <td><input type="date" placeholder="Date"></td>
-          <td><input type="radio" placeholder="Planks"></td>
-          <td><input type="radio" placeholder="Pullups"></td>
-          <td><input type="radio" placeholder="Double-Unders"></td>
+          <td><input type="checkbox" placeholder="Planks"></td>
+          <td><input type="checkbox" placeholder="Pullups"></td>
+          <td><input type="checkbox" placeholder="Double-Unders"></td>
       </tr>
-      <!-- Repeat rows for more input fields -->
   </table>
+
+  <input type="submit" value="Submit" class="tracker-button">
+  <input type="reset" value="Reset" class="tracker-button">
+
+</form>
+
+  <h1>Access Database Example</h1>
+    
+  <button onclick="retrieveData()">Retrieve Data</button>
+  
+  <div id="output"></div>
+
+
 
     <script src="./src/index.js"></script>
     <footer>
