@@ -9,26 +9,13 @@ html {
     z-index:0;
     overflow: hidden;
   }
-
-  body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1;
-    padding: 20px;
-  }
-  
+ 
   h1 {
     text-align: left;
     font-size: 50px;
     font-family: "Futura", Arial, Helvetica, sans-serif;
-    color: grey;
-    -webkit-text-stroke: 2px #212D40;
+    color: #7D4E57;
+    -webkit-text-stroke: 2px #7D4E57;
   }
   
 nav {
@@ -37,13 +24,43 @@ nav {
     text-align: right;
 }
 
+a {
+    color: #d66853;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid #212D40;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+main {
+    padding: 6px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1400px;
+  }
+
   h2 {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 30px;
-    color: #364156;
+    color: #11151C;
   }
   
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 15px;
+    color: #364156;
+  }
+
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #364156;
+  }
    
   footer {
     font-family: Arial, Helvetica, sans-serif;
@@ -51,3 +68,31 @@ nav {
     color: #d66853;
   }
   
+  .images-movies {
+    box-shadow: 0 0 3px 2px rgba(115, 66, 48, 0.2);
+    border-radius: 6px;
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 600px) {
+    main {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    main {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    main {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
