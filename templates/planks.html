@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Fitness Tracker</title>
@@ -34,10 +36,10 @@
       </tr>
       <!-- input fields -->
       <tr>
-          <td><input type="date" placeholder="Date"></td>
-          <td><input type="checkbox" placeholder="Planks"></td>
-          <td><input type="checkbox" placeholder="Pullups"></td>
-          <td><input type="checkbox" placeholder="Double-Unders"></td>
+          <td id="tracker-date"><input type="date" placeholder="Date"></td>
+          <td id="planks-input"><input type="text" placeholder="Planks"></td>
+          <td id="pullups-input"><input type="text" placeholder="Pullups"></td>
+          <td id="double-unders-input"><input type="text" placeholder="Double-Unders"></td>
       </tr>
   </table>
 
@@ -46,11 +48,13 @@
 
 </form>
 
-  <h1>Access Database Example</h1>
+  <h2>Excel Data Example</h2>
 
-  <div id="data-container"></div>
+  <table id="excel-table" class="excelTable">
+    The table should be here
+    <!-- Table content will be inserted here -->
+</table>
 
-  <!-- Include reference to external JavaScript file -->
   <script src="../static/src/index.js"></script>
 
   <button onclick="retrieveData()">Retrieve Data</button>

@@ -1,11 +1,18 @@
-function openTab(tabName) {
-    let i, tabs;
-    tabs = document.getElementsByClassName("tab");
-    for (i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove("active");
-    }
-    document.getElementById(tabName).classList.add("active");
-}
+// this function fetches the data for the practice tracker table from the python file
+
+$(document).ready(function() {
+    // Fetch data from Flask endpoint
+    $.getJSON('/get_excel_data', function(data) {
+        // Generate table rows
+        $.each(data, function(index, row) {
+            var tr = $('<tr>');
+            $.each(row, function(index, cell) {
+                tr.append($('<td>').text(cell));
+            });
+            $('#excel-table').append(tr);
+        });
+    });
+});
 
 
 // This JavaScript is for the buttons on the form submission for practice-tracker.html
@@ -42,18 +49,3 @@ document.addEventListener("DOMContentLoaded", function() {
             form.reset();
         }});
 });
-
-// Function to fetch data from backend 
-async function fetchData() {
-    try {
-        const response = await fetch('/get_data');
-        const data = await response.json();
-        // Handle retrieved data here (e.g., display it in the HTML)
-        document.getElementById('data-container').innerText = JSON.stringify(data);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-// Call fetchData when the page loads
-window.onload = fetchData;

@@ -102,6 +102,12 @@ th {
     background-color: #f2f2f2;
 }
 
+.excelTable {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
   @media screen and (min-width: 600px) {
     main {
       grid-template-columns: repeat(2, 1fr);
