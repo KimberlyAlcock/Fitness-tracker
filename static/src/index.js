@@ -43,36 +43,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }});
 });
 
-// Function to fetch data from backend and render it on the webpage
-async function fetchDataAndRender() {
+// Function to fetch data from backend 
+async function fetchData() {
     try {
         const response = await fetch('/get_data');
         const data = await response.json();
-        const table = document.getElementById('data-table');
-        table.innerHTML = ''; // Clear existing data
-        // Create table header
-        const headerRow = document.createElement('tr');
-        for (const key of Object.keys(data[0])) {
-            const th = document.createElement('th');
-            th.textContent = key;
-            headerRow.appendChild(th);
-        }
-        table.appendChild(headerRow);
-        // Create table rows
-        for (const row of data) {
-            const tr = document.createElement('tr');
-            for (const key of Object.keys(row)) {
-                const td = document.createElement('td');
-                td.textContent = row[key];
-                tr.appendChild(td);
-            }
-            table.appendChild(tr);
-        }
+        // Handle retrieved data here (e.g., display it in the HTML)
+        document.getElementById('data-container').innerText = JSON.stringify(data);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
-// Call fetchDataAndRender on page load
-fetchDataAndRender();
-
+// Call fetchData when the page loads
+window.onload = fetchData;

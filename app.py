@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 # Establish connection to Access database
 conn_str = (
-    r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
-    r'DBQ=./data/practice-tracker.accdb;'
+    'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
+    'DBQ=./data/practice-tracker.accdb;'
 )
 conn = pyodbc.connect(conn_str)
 cursor = conn.cursor()
@@ -18,7 +18,7 @@ def index():
 @app.route('/get_data')
 def get_data():
     # Fetch data from the Access database
-    cursor.execute('SELECT * FROM skills-practice')
+    cursor.execute('SELECT * FROM [skills-practice]')
     rows = cursor.fetchall()
 
     # Convert data to list of dictionaries
