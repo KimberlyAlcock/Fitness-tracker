@@ -40,11 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let confirmation = confirm("Are you sure you want to reset the form?");
         if (confirmation) {
             form.reset();
-        // }
-
-        // Reset the form
-        form.reset();
-    }});
+        }});
 });
 
 function retrieveData() {
