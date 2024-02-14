@@ -1,32 +1,28 @@
-import pyodbc
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template, request
+import openpyxl
 
 app = Flask(__name__)
 
-# Establish connection to Access database
-conn_str = (
-    'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
-    'DBQ=./data/practice-tracker.accdb;'
-)
-conn = pyodbc.connect(conn_str)
-cursor = conn.cursor()
-
 @app.route('/')
 def index():
-    return render_template('planks.html')
+    return render_template('index.html')
 
-@app.route('/get_data')
-def get_data():
-    # Fetch data from the Access database
-    cursor.execute('SELECT * FROM [skills-practice]')
-    rows = cursor.fetchall()
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.form['data']
 
-    # Convert data to list of dictionaries
-    data = []
-    for row in rows:
-        data.append(dict(zip([column[0] for column in cursor.description], row)))
+    # Open the Excel file
+    wb = openpyxl.load_workbook('./data/practice-tracker.xlsx')
+    ws = wb.active
 
-    return jsonify(data)
+    # Append data to the next empty row
+    row = (data,)
+    ws.append(row)
+
+    # Save the changes
+    wb.save('data.xlsx')
+
+    return 'Data submitted successfully!'
 
 if __name__ == '__main__':
     app.run(debug=True)
