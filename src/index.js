@@ -43,16 +43,36 @@ document.addEventListener("DOMContentLoaded", function() {
         }});
 });
 
-function retrieveData() {
-    // Here, you would connect to your Access database and fetch the data
-    // For demonstration purposes, let's assume we have fetched the data as a string
-    let accessData = "./assets/practice-tracker.accdb";
-    
-    if (typeof(Storage) !== "undefined") {
-        localStorage.setItem("accessData", accessData);
-        document.getElementById("output").innerHTML = accessData;
-    } else {
-        document.getElementById("output").innerHTML = "Sorry, your browser does not support Web Storage.";
+// Function to fetch data from backend and render it on the webpage
+async function fetchDataAndRender() {
+    try {
+        const response = await fetch('/get_data');
+        const data = await response.json();
+        const table = document.getElementById('data-table');
+        table.innerHTML = ''; // Clear existing data
+        // Create table header
+        const headerRow = document.createElement('tr');
+        for (const key of Object.keys(data[0])) {
+            const th = document.createElement('th');
+            th.textContent = key;
+            headerRow.appendChild(th);
+        }
+        table.appendChild(headerRow);
+        // Create table rows
+        for (const row of data) {
+            const tr = document.createElement('tr');
+            for (const key of Object.keys(row)) {
+                const td = document.createElement('td');
+                td.textContent = row[key];
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 }
+
+// Call fetchDataAndRender on page load
+fetchDataAndRender();
 
