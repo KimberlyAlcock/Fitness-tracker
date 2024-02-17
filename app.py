@@ -1,5 +1,25 @@
+import json
+import pandas as pd
+
+# Read Excel file into a pandas DataFrame
+tracker_data_df = pd.read_excel('./data/practice-tracker.xlsx', sheet_name='active')
+
+# Convert DataFrame to JSON
+json_data = tracker_data_df.to_json(orient='records', date_format='iso')
+
+# Write JSON data to a file
+
+with open('./static/src/data.json', 'w') as f:
+    f.write(json_data)
+
+# Print JSON results to console
+print('Excel Sheet convered to JSON', json_data)
+
+
+##################################################################
+
+# Receive Tracker form input
 from flask import Flask, render_template, request, jsonify
-import openpyxl
 
 app = Flask(__name__)
 
@@ -7,45 +27,17 @@ app = Flask(__name__)
 def index():
     return render_template('planks.html')
 
-# Pulls data from the excel file practice-tracker.xlsx
-print("app starting")
-@app.route('/get_excel_data')
-def get_excel_data():
-    # Load the Excel file
-    wb = openpyxl.load_workbook('./data/practice-tracker.xlsx')
-    sheet = wb.active
-
-    # Read data from Excel file
-    data = []
-    for row in sheet.iter_rows(values_only=True):
-        data.append(row)
-
-    # Return data as JSON
-    print(data)
-    print(jsonify(data))
-    return jsonify(data)
-    
-print("app finishing")
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# Adds data to the excel file practice-tracker.xlsx
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.form['data']
+    # Get form data from request
+    form_data = request.form.to_dict()
 
-    # Open the Excel file
-    wb = openpyxl.load_workbook('./data/practice-tracker.xlsx')
-    ws = wb.active
+    # Convert form data to JSON
+    with open('./static/src/data.json', 'w') as g:
+        json.dump(form_data, g)
 
-    # Append data to the next empty row
-    row = (data,)
-    ws.append(row)
-
-    # Save the changes
-    wb.save('practice-tracker.xlsx')
-
-    return 'Data submitted successfully!'
+    return jsonify({'message': 'Data saved to data.json'})
 
 if __name__ == '__main__':
     app.run(debug=True)
+    

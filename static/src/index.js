@@ -1,20 +1,4 @@
-// this function fetches the data for the practice tracker table from the python file
-
-$(document).ready(function() {
-    // Fetch data from Flask endpoint
-    $.getJSON('/get_excel_data', function(data) {
-        // Generate table rows
-        $.each(data, function(index, row) {
-            var tr = $('<tr>');
-            $.each(row, function(index, cell) {
-                tr.append($('<td>').text(cell));
-            });
-            $('#excel-table').append(tr);
-        });
-    });
-});
-
-
+/*
 // This JavaScript is for the buttons on the form submission for practice-tracker.html
 document.addEventListener("DOMContentLoaded", function() {
     // Get the form element
@@ -49,3 +33,4 @@ document.addEventListener("DOMContentLoaded", function() {
             form.reset();
         }});
 });
+*/
