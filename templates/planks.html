@@ -25,6 +25,7 @@
   </div>
 
   <h3>Input Planks, Pullups, and Double-Unders Practice</h3>
+
   <form id="practiceTrackerForm" action="/submit" method="post">
   <table>
       <tr>
@@ -33,34 +34,24 @@
           <th>Pullups</th>
           <th>Double-Unders</th>
       </tr>
-      <!-- input fields -->
+      
       <tr>
           <td id="tracker-date"><input type="date" placeholder="Date"></td>
-          <td id="planks-input"><input type="checkbox" name="Planks"></td>
-          <td id="pullups-input"><input type="checkbox" name="Pullups"></td>
-          <td id="double-unders-input"><input type="checkbox" name="Double-Unders"></td>
+          <td id="planks-input"><input type="checkbox" name="Planks" placeholder="Planks"></td>
+          <td id="pullups-input"><input type="checkbox" name="Pullups" placeholder="Pullups"></td>
+          <td id="double-unders-input"><input type="checkbox" name="Double-Unders" placeholder="Double-Unders"></td>
       </tr>
   </table>
-
-  <h1>User Data to JSON</h1>
-  <form action="/submit" method="post">
-      <label for="Date">Date:</label>
-      <input type="date" id="tDate" name="tDate"><br>
-      <label for="planks">Planks:</label>
-      <input type="checkbox" id="tPlanks" name="tPlanks"><br>
-      <label for="pullups">Pullups:</label>
-      <input type="checkbox" id="tPullups" name="tPullups"><br>
-      <label for="dubs">Double-Unders:</label>
-      <input type="checkbox"id="tDubs" name="tDubs"><br>
-      <button type="submit">Submit</button>
-  </form>
-
   <input type="submit" value="Submit" class="tracker-button">
   <input type="reset" value="Reset" class="tracker-button">
-<br>
-<br>
-<br>
 </form>
+
+
+
+<br>
+<br>
+<br>
+
 
   <h3>Practice History</h3>
   The table should be below here
