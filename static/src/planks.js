@@ -1,9 +1,9 @@
 document.getElementById("submitBtn").addEventListener("click", function() {
     // Get user input values
-    let date = document.getElementById("tracker-date").date;
-    let planks = document.getElementById("planks-input").checked;
-    let pullups = document.getElementById("pullups-input").checked;
-    let doubleUnders = document.getElementById("double-unders-input").checked;
+    let date = document.getElementById("tracker-date").querySelector("input").value;
+    let planks = document.getElementById("planks-input").querySelector("input").checked;
+    let pullups = document.getElementById("pullups-input").querySelector("input").checked;
+    let doubleUnders = document.getElementById("double-unders-input").querySelector("input").checked;
 
     // Create a new table row
     let newRow = document.createElement("tr");
@@ -22,8 +22,8 @@ document.getElementById("submitBtn").addEventListener("click", function() {
 
 document.getElementById("resetBtn").addEventListener("click", function() {
     // Clear the form inputs
-    document.getElementById("dateInput").value = "";
-    document.getElementById("planksCheckbox").checked = false;
-    document.getElementById("pullupsCheckbox").checked = false;
-    document.getElementById("doubleUndersCheckbox").checked = false;
+    document.getElementById("tracker-date").querySelector("input").value = "";
+    document.getElementById("planks-input").querySelector("input").checked = false;
+    document.getElementById("pullups-input").querySelector("input").checked = false;
+    document.getElementById("double-unders-input").querySelector("input").checked = false;
 });
