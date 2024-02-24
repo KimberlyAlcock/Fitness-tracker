@@ -21,7 +21,10 @@
   <div id="planks">
       <h2>Practice Tracker</h2>
       <p>Did you plank today? Well did ya? </p>
-      <p>TODO: change submit button to send data to .xlsx db</p>
+      <p>TODO: add event listeners for submit and reset buttons</p>
+      <p>TODO: store submitted data in objects</p>
+      <p>TODO: serialize data in object to json file</p>
+      <p>TODO: python: print JSON file to xlsx</p>
   </div>
 
   <h3>Input Planks, Pullups, and Double-Unders Practice</h3>
@@ -42,8 +45,8 @@
           <td id="double-unders-input"><input type="checkbox" name="Double-Unders" placeholder="Double-Unders"></td>
       </tr>
   </table>
-  <input type="submit" value="Submit" class="tracker-button">
-  <input type="reset" value="Reset" class="tracker-button">
+  <button type="button" id="submitBtn">Submit</button>
+  <button type="button" id="resetBtn">Reset</button>
 </form>
 
 
