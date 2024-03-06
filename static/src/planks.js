@@ -45,7 +45,26 @@ document.getElementById("resetBtn").addEventListener("click", function() {
     document.getElementById("double-unders-input").querySelector("input").checked = false;
 });
 
+// This will fetch the data for the practice history table
 
+// Fetch data from JSON file
+fetch('../static/src/data.json')
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('data-body');
+
+        // Iterate over the data and create table rows
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            Object.keys(item).forEach(key => {
+                const cell = document.createElement('td');
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => console.error('Error:', error));
 
 
 
