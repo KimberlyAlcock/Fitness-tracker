@@ -4,44 +4,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="../static/src/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/styles.css') }}">
   </head>
   <body>
     <header>
       <h1 id="title">Fitness Tracker</h1>
     </header>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="crossfit.html">CrossFit</a>
-        <a href="planks.html">Practice Tracker</a>
-        <a href="running.html">Running Program</a>       
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('crossfit_page') }}">CrossFit</a>
+        <a href="{{ url_for('planks_page') }}">Practice Tracker</a>
+        <a href="{{ url_for('running_page') }}">Running Program</a>       
     </nav>
 
-
-  <div id="crossFit">
+  <main>
+    <div id="crossFit">
       <h2>CrossFit Content</h2>
-      <h3>This is the content of the CrossFit tab</h3>
-      <p>TODO: connect to API for CrossFit Open/Games.</p>
-  </div>
+      <h3>Track lifts and personal records.</h3>
+      <p>This page now loads CrossFit stats from the backend API, with sortable columns and a skill summary.</p>
+    </div>
 
-  <h3>CrossFit Stats</h3>
-  
-  <table id="data-table-crossfit">
-    <thead>
+    <section id="crossfit-summary"></section>
+
+    <h3>CrossFit Stats</h3>
+    <table id="data-table-crossfit">
+      <thead>
         <tr>
-            <th>Skill</th>
-            <th>Stat</th>
-            <th>Date</th>
+          <th>Skill <button type="button">Sort</button></th>
+          <th>Stat <button type="button">Sort</button></th>
+          <th>Date <button type="button">Sort</button></th>
         </tr>
-    </thead>
-    <tbody id="data-body-crossfit">
-    </tbody>
-</table>
+      </thead>
+      <tbody id="data-body-crossfit"></tbody>
+    </table>
+  </main>
 
-
-    <script src="../static/src/crossfit.js"></script>
-    <footer>
-      Fitness Tracker by kimmiegymgym 
-    </footer>
+  <script src="{{ url_for('static', filename='src/crossfit.js') }}"></script>
+  <footer>
+    Fitness Tracker by kimmiegymgym
+  </footer>
   </body>
 </html>

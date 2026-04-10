@@ -4,17 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="../static/src/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/styles.css') }}">
   </head>
   <body>
     <header>
       <h1 id="title">Fitness Tracker</h1>
 
       <nav>
-        <a href="index.html">Home</a>
-        <a href="crossfit.html">CrossFit</a>
-        <a href="planks.html">Practice Tracker</a>
-        <a href="running.html">Running Program</a>      
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('crossfit_page') }}">CrossFit</a>
+        <a href="{{ url_for('planks_page') }}">Practice Tracker</a>
+        <a href="{{ url_for('running_page') }}">Running Program</a>      
       </nav>
     </header>
 
@@ -27,20 +27,20 @@
 
     <section class="images-movies">
       <h3>Setting up for back squat</h3>
-      <img src="../static/assets/IMG_4316.jpg" alt="Person with barbell on back" >
+      <img src="{{ url_for('static', filename='assets/IMG_4316.jpg') }}" alt="Person with barbell on back" >
     </section>
 
     <section class="images-movies">
       <h3>Clean</h3>
       <video width="320" height="240" controls>
-          <source src="../static/assets/IMG_4103.MOV" type="video/quicktime">
+          <source src="{{ url_for('static', filename='assets/IMG_4103.MOV') }}" type="video/quicktime">
           Your browser does not support the video tag.
       </video>
     </section>
 
   </main>
   
-    <script src="../static/src/index.js"></script>
+    <script src="{{ url_for('static', filename='src/index.js') }}"></script>
     <footer>
       Fitness Tracker by kimmiegymgym 
     </footer>

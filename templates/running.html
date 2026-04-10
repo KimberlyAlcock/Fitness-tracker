@@ -4,28 +4,48 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="../static/src/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/styles.css') }}">
   </head>
   <body>
     <header>
       <h1 id="title">Fitness Tracker</h1>
     </header>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="crossfit.html">CrossFit</a>
-      <a href="planks.html">Practice Tracker</a>
-      <a href="running.html">Running Program</a>      
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('crossfit_page') }}">CrossFit</a>
+      <a href="{{ url_for('planks_page') }}">Practice Tracker</a>
+      <a href="{{ url_for('running_page') }}">Running Program</a>      
     </nav>
 
-  <div id="running">
-    <h2>Running Program Generator</h2>
-    <h3>This is the content of the Running tab</h3>
-    <p>TODO: create a Running plan generator.</p>
-  </div>
+    <main>
+      <div id="running">
+        <h2>Running Program Generator</h2>
+        <p>Create a four-week running plan based on your current mileage and your goal distance.</p>
+      </div>
 
-    <script src="../static/src/index.js"></script>
+      <form id="running-form">
+        <label>
+          Current weekly mileage:
+          <input type="number" id="current-mileage" min="0" step="0.5" value="5" />
+        </label>
+        <label>
+          Goal distance:
+          <select id="goal-distance">
+            <option>5K</option>
+            <option>10K</option>
+            <option>Half Marathon</option>
+            <option>Marathon</option>
+          </select>
+        </label>
+        <button type="submit" id="generateBtn">Generate Plan</button>
+      </form>
+
+      <section id="running-plan"></section>
+    </main>
+
+    <script src="{{ url_for('static', filename='src/running.js') }}"></script>
     <footer>
-      Fitness Tracker by kimmiegymgym 
+      Fitness Tracker by kimmiegymgym
     </footer>
   </body>
 </html>
