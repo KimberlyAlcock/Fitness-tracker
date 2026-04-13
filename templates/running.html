@@ -20,7 +20,7 @@
     <main>
       <div id="running">
         <h2>Running Program Generator</h2>
-        <p>Create a four-week running plan based on your current mileage and your goal distance.</p>
+        <p>Create a personalized running plan based on your current mileage, goal distance, and race date.</p>
       </div>
 
       <form id="running-form">
@@ -36,6 +36,14 @@
             <option>Half Marathon</option>
             <option>Marathon</option>
           </select>
+        </label>
+        <label>
+          Race date:
+          <input type="date" id="race-date" required />
+        </label>
+        <label>
+          Runs per week (1-4):
+          <input type="number" id="runs-per-week" min="1" max="4" value="3" />
         </label>
         <button type="submit" id="generateBtn">Generate Plan</button>
       </form>

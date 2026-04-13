@@ -7,27 +7,34 @@ function renderPlan(plan, goalDistance) {
     return;
   }
 
+  // Get all unique run types from the plan
+  const runTypes = new Set();
+  plan.forEach(week => {
+    Object.keys(week).forEach(key => {
+      if (key !== "Week" && key !== "Goal") {
+        runTypes.add(key);
+      }
+    });
+  });
+  const runTypeArray = Array.from(runTypes);
+
+  const headerRow = runTypeArray.map(type => `<th>${type}</th>`).join("");
   const rows = plan
     .map(
-      (item) => `
-      <tr>
-        <td>${item["Week"]}</td>
-        <td>${item["Easy Run"]}</td>
-        <td>${item["Tempo Run"]}</td>
-        <td>${item["Long Run"]}</td>
-      </tr>`
+      (item) => {
+        const cells = runTypeArray.map(type => `<td>${item[type] || "-"}</td>`).join("");
+        return `<tr><td>${item["Week"]}</td>${cells}</tr>`;
+      }
     )
     .join("");
 
   planSection.innerHTML = `
-    <h3>${goalDistance} Training Plan</h3>
+    <h3>${goalDistance} Training Plan (${plan.length} weeks)</h3>
     <table>
       <thead>
         <tr>
           <th>Week</th>
-          <th>Easy Run</th>
-          <th>Tempo Run</th>
-          <th>Long Run</th>
+          ${headerRow}
         </tr>
       </thead>
       <tbody>
@@ -42,6 +49,8 @@ form.addEventListener("submit", async (event) => {
 
   const currentMileage = parseFloat(document.getElementById("current-mileage").value || 0);
   const goalDistance = document.getElementById("goal-distance").value;
+  const raceDate = document.getElementById("race-date").value;
+  const runsPerWeek = parseInt(document.getElementById("runs-per-week").value || 3);
 
   planSection.innerHTML = "<p>Generating your plan...</p>";
 
@@ -49,7 +58,7 @@ form.addEventListener("submit", async (event) => {
     const response = await fetch("/api/running-plan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ currentMileage, goalDistance }),
+      body: JSON.stringify({ currentMileage, goalDistance, raceDate, runsPerWeek }),
     });
 
     if (!response.ok) {

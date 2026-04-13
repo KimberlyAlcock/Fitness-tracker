@@ -115,25 +115,52 @@ def save_practice_entry(entry):
             df.to_excel(writer, sheet_name=PRACTICE_SHEET, index=False)
 
 
-def generate_running_plan(current_miles, goal_distance):
+def generate_running_plan(current_miles, goal_distance, race_date, runs_per_week):
     targets = {"5K": 3.1, "10K": 6.2, "Half Marathon": 13.1, "Marathon": 26.2}
     goal_miles = targets.get(goal_distance, 3.1)
+    
+    today = date.today()
+    weeks_until_race = max(1, (race_date - today).days // 7)
+    
+    # Determine long run increase based on plan length
+    if weeks_until_race >= 12:
+        long_run_increase = 1.0  # 1 mile per week
+    elif weeks_until_race >= 8:
+        long_run_increase = 1.5  # 1.5 miles per week
+    else:
+        long_run_increase = 2.0  # 2 miles per week
+    
     plan = []
     base_mileage = max(current_miles, 3.0)
-
-    for week in range(1, 5):
-        easy_run = round(max(2.0, base_mileage + (week - 1) * 0.75), 1)
-        tempo_run = round(max(2.0, easy_run - 0.5), 1)
-        long_run = round(min(base_mileage + week * 1.5, goal_miles * 0.75), 1)
+    
+    for week in range(1, weeks_until_race + 1):
+        long_run = round_up_to_half_mile(min(base_mileage + week * long_run_increase, goal_miles * 0.75))
+        
+        week_runs = {}
+        if runs_per_week >= 1:
+            week_runs["Easy Run"] = f"{round_up_to_half_mile(max(2.0, base_mileage + (week - 1) * 0.75))} miles"
+        if runs_per_week >= 2:
+            week_runs["Tempo Run"] = f"{round_up_to_half_mile(max(2.0, long_run - 0.5))} miles"
+        if runs_per_week >= 3:
+            week_runs["Hill Repeats"] = f"{round_up_to_half_mile(max(1.0, long_run * 0.3))} miles"
+        if runs_per_week >= 4:
+            week_runs["Intervals"] = f"{round_up_to_half_mile(max(1.5, long_run * 0.4))} miles"
+        
         plan.append({
             "Week": week,
-            "Easy Run": f"{easy_run} miles",
-            "Tempo Run": f"{tempo_run} miles",
             "Long Run": f"{long_run} miles",
+            **week_runs,
             "Goal": goal_distance,
         })
-
+    
     return plan
+
+
+import math
+
+def round_up_to_half_mile(distance):
+    # Round up to nearest half mile
+    return math.ceil(distance * 2) / 2
 
 
 @app.after_request
@@ -222,7 +249,22 @@ def running_plan():
     if goal_distance not in ALLOWED_GOAL_DISTANCES:
         return jsonify({"error": f"goalDistance must be one of {sorted(ALLOWED_GOAL_DISTANCES)}."}), 400
 
-    return jsonify({"goalDistance": goal_distance, "plan": generate_running_plan(current_miles, goal_distance)})
+    race_date_str = payload.get("raceDate")
+    if not race_date_str:
+        return jsonify({"error": "raceDate is required."}), 400
+    try:
+        race_date = datetime.fromisoformat(race_date_str).date()
+    except ValueError:
+        return jsonify({"error": "raceDate must be in YYYY-MM-DD format."}), 400
+
+    try:
+        runs_per_week = int(payload.get("runsPerWeek", 3))
+        if not 1 <= runs_per_week <= 4:
+            raise ValueError
+    except (TypeError, ValueError):
+        return jsonify({"error": "runsPerWeek must be an integer between 1 and 4."}), 400
+
+    return jsonify({"goalDistance": goal_distance, "plan": generate_running_plan(current_miles, goal_distance, race_date, runs_per_week)})
 
 
 if __name__ == "__main__":
